@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Feliz Cumpleaños Mamá!</title>
+  <style>
+     body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #87CEEB;
+      overflow: hidden;
+      transition: background 0.8s ease-in-out;
+    }
+
+    .envelope-container {
+      width: 400px;
+      height: 280px;
+      position: relative;
+      cursor: pointer;
+      perspective: 1000px;
+      transition: transform 0.6s ease;
+      z-index: 10; /* Aseguramos que el sobre esté por encima de todo */
+    }
+
+    .envelope {
+      width: 100%;
+      height: 100%;
+      background: #f1c40f;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #f39c12;
+      clip-path: polygon(0 0, 100% 0, 50% 60%);
+      transform-origin: top;
+      transition: transform 0.6s ease, z-index 0.6s ease;
+      z-index: 2;
+    }
+
+    .letter {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
+      transform: translateY(30px) scale(0.8);
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .letter img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Clases para abrir el sobre */
+    .envelope-container.open .flap {
+      transform: rotateX(-180deg);
+      z-index: 0;
+    }
+
+    .envelope-container.open .letter {
+      position: fixed; /* Posicionamiento fijo para que no dependa del sobre */
+      top: 50%; /* Centra verticalmente en la pantalla */
+      left: 50%; /* Centra horizontalmente en la pantalla */
+      transform: translate(-50%, -50%) scale(1.5); /* Centra y agranda */
+      opacity: 1;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      z-index: 1; /* Valor z-index ajustado para estar por encima del sobre */
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      animation: pulse 1.5s infinite;
+      transition: opacity 0.5s ease;
+      z-index: 10;
+    }
+
+    .envelope-container.open ~ .hint {
+      opacity: 0;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+</style>
+</head>
+<body>
+
+  <div class="envelope-container" onclick="this.classList.toggle('open')">
+    <div class="envelope">
+      <div class="flap"></div>
+      <div class="letter">
+        <img src="tarjeta.jpg" alt="Feliz Cumpleaños Atrasado Mamá">
+      </div>
+    </div>
+  </div>
+
+  <div class="hint">¡Dale click al sobre para abrirlo!</div>
+
+  <script>
+    // Script para cambiar el fondo al abrir el sobre
+    document.querySelector('.envelope-container').addEventListener('click', function() {
+      if (this.classList.contains('open')) {
+        document.body.style.background = '#0d2238'; // Fondo oscuro
+      } else {
+        document.body.style.background = '#87CEEB'; // Fondo claro
+      }
+    });
+  </script>
+
+</body>
+</html>
